@@ -91,9 +91,9 @@ async def on_ready():
 #################### EVENT: on_message ####################
 
 functionlist = ['@Herobrine : My list of commands',
-                '!Herobrine start : start the minecraft server',
-                '!Herobrine stop : stop the minecraft server',
-                '!Herobrine restart : restart the minecraft server',
+                '@Herobrine start : start the minecraft server',
+                '@Herobrine stop : stop the minecraft server',
+                '@Herobrine restart : restart the minecraft server',
                 '\n*Created by memebot#4384 who is graciously open to bot ideas/suggestions*'
                 ]
 
@@ -107,7 +107,18 @@ async def on_message(message):
     
     if message.author == client.user:
         return # returns (does nothing) if message author is from Herobrine
+    
+    if message.content == '<@!'+str(client.user.id) +'>':
+        funcmsg = ''
+        for function in functionlist:
+            funcmsg += function + '\n'
         
+        embed = discord.Embed(title = 'Herobrine Commands {}'.format(cversion),
+            description = funcmsg,
+            color=discord.Color.red())
+        await message.channel.send(embed = embed)
+    
+    
     if message.content == '<@!'+str(client.user.id) +'> start': 
         mAuthor = message.author # string of message author e.g. "memebot#4384"
         permissions = getPerms(message)
